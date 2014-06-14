@@ -1,0 +1,10 @@
+#raise volume
+"amixer sset Master 3+"
+       XF86AudioRaiseVolume
+#lower volume
+"amixer sset Master 3-"
+       XF86AudioLowerVolume
+"amixer sset Master toggle"
+       XF86AudioMute
+"urxvt"
+       XF86Display
