@@ -278,7 +278,11 @@ globalkeys = awful.util.table.join(
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end),
     awful.key({ }, "Print", function() awful.util.spawn("scrot -e 'mv $f /home/zachary/screenshots/'") end),
-    awful.key({modkey}, "l", function() awful.util.spawn("xscreensaver-command --lock") end)
+    awful.key({modkey}, "l", function() awful.util.spawn("xscreensaver-command --lock") end),
+    awful.key({modkey, "Shift"}, "Return", function () awful.util.spawn ("mpc toggle") end),
+    awful.key({modkey, "Shift"}, "-", function () awful.util.spawn ("mpc prev") end),
+    awful.key({modkey, "Shift"}, "=", function () awful.util.spawn ("mpc next") end)
+
 )
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
