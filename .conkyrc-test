@@ -62,13 +62,13 @@ temperature_unit fahrenheit
 
 TEXT
 
-CPU: $cpu% ${cpubar 6,100} \
+CPU: ${cpubar 6,100} \
 | RAM: ${membar 4,100}        \
 ${color 5a603e} /home: ${fs_bar 6,100 /home} \
 $color | ${color 5a603e} /fast: ${fs_bar 6,100 /fast}         \
 $alignc \
 $if_mpd_playing \
-${color 000000} $mpd_artist - $mpd_title ($mpd_album) ${mpd_bar 4,150} \
+${color 000000} $mpd_artist - $mpd_title ($mpd_album) ${mpd_bar 8,150} \
 $endif \
 $alignr\
 ${color e2dfb2} Up: ${upspeedgraph enp0s25 6, 100 -l} \
