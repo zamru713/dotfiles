@@ -13,7 +13,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 vicious = require("vicious")
-
+local APW = require("apw/widget")
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -41,7 +41,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/usr/share/awesome/themes/kraken/theme.lua")
+beautiful.init("/usr/share/awesome/themes/dragonbattle/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
@@ -113,6 +113,13 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- {{{ Wibox
+baticon = wibox.widget.imagebox()
+baticon:set_image(beautiful.bat_icon)
+batwidget = lain.widgets.bat({
+	  settings = function()
+	  widget:set_markup(bat_now.perc .. "% ("..bat_now.time..")")
+	  end
+})
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
 -- Create a wibox for each screen and add it
@@ -120,7 +127,6 @@ mywibox = {}
 mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
-mystatusbar = {}
 mytaglist.buttons = awful.util.table.join(
                     awful.button({ }, 1, awful.tag.viewonly),
                     awful.button({ modkey }, 1, awful.client.movetotag),
@@ -164,9 +170,6 @@ mytasklist.buttons = awful.util.table.join(
                                               if client.focus then client.focus:raise() end
                                           end))
 
-
-mystatusbar = awful.wibox({position = "bottom", screen = 1, ontop = false, width = 1, height = 20})
-
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
@@ -184,7 +187,6 @@ for s = 1, screen.count() do
     -- Create a tasklist widget
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
-
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
 
@@ -198,6 +200,8 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(mytextclock)
+    right_layout:add(baticon)
+    right_layout:add(batwidget)
     right_layout:add(mylayoutbox[s])
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
@@ -278,11 +282,7 @@ globalkeys = awful.util.table.join(
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end),
     awful.key({ }, "Print", function() awful.util.spawn("scrot -e 'mv $f /home/zachary/screenshots/'") end),
-    awful.key({modkey}, "l", function() awful.util.spawn("xscreensaver-command --lock") end),
-    awful.key({modkey, "Shift"}, "Return", function () awful.util.spawn ("mpc toggle") end),
-    awful.key({modkey, "Shift"}, "-", function () awful.util.spawn ("mpc prev") end),
-    awful.key({modkey, "Shift"}, "=", function () awful.util.spawn ("mpc next") end)
-
+    awful.key({modkey}, "l", function() awful.util.spawn("xscreensaver-command --lock") end)
 )
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
