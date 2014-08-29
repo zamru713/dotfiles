@@ -371,6 +371,15 @@ awful.rules.rules = {
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
     { rule = {class = "xpad"}, properties = {floating = true} },
+    { rule = {class = "Conky"}, 
+      properties = {
+                 border_width = 0, 
+                 floating = true,
+      },
+      callback = function( c )
+                 c:geometry( { width = 400, height = 1300, x = 0, y = 0 } )
+                 end
+   }, 
 }
 -- }}}
 
