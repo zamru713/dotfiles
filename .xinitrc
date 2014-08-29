@@ -1,14 +1,15 @@
 
 #!/bin/sh
 
-
-#/usr/bin/start-pulseaudio-x11
+export PATH=$PATH:/fast
+/usr/bin/start-pulseaudio-x11
 [[ -f $HOME/.Xresources ]] && xrdb -merge ~/.Xresources
 /usr/bin/xset b off
 /usr/bin/wicd-client -t &
 /usr/bin/dropboxd &
 /usr/bin/xscreensaver -nosplash &
 /usr/bin/conky &
+/usr/bin/conky -c /home/zachary/.conkyrc-test 
 /usr/bin/xbindkeys &
 udiskie --tray &
 xpad &
